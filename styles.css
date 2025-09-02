@@ -136,3 +136,10 @@ body {
 @media (max-width: 800px) {
   .mobile-only { display: inline-block; }
 }
+
+@media (max-width: 800px) {
+  body[data-mode="episodes"] .status-link {
+    text-decoration: underline;
+    cursor: pointer;
+  }
+}
