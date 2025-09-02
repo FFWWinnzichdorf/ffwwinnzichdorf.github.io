@@ -11,6 +11,7 @@ const capEl = $("#panelCaption");
 const statusEl = $("#statusText");
 const prevBtn = $("#prevBtn");
 const nextBtn = $("#nextBtn");
+const mobileEpisodesBtn = document.getElementById("mobileEpisodesBtn");
 
 // Parse location hash like #ep1:2  (episode id : 1-based panel)
 function parseHash() {
@@ -89,6 +90,20 @@ function setupSwipe() {
   }, {passive:true});
 }
 
+function setupVerticalSwipe() {
+  let startY = null;
+  imgEl.addEventListener("touchstart", e => { startY = e.touches[0].clientY; }, {passive:true});
+  imgEl.addEventListener("touchend", e => {
+    if (startY == null) return;
+    const dy = e.changedTouches[0].clientY - startY;
+    if (Math.abs(dy) > 50) {
+      if (dy < 0) setMode("episodes"); // swipe up
+      else setMode("read");            // swipe down
+    }
+    startY = null;
+  }, {passive:true});
+}
+
 // Keyboard arrows
 function setupKeys() {
   window.addEventListener("keydown", e => {
@@ -128,10 +143,13 @@ async function init() {
   // wire controls
   nextBtn.addEventListener("click", goNext);
   prevBtn.addEventListener("click", goPrev);
+  mobileEpisodesBtn?.addEventListener("click", () => setMode("episodes"));
+  
   setupClickZones();
   setupSwipe();
   setupKeys();
-
+  setupVerticalSwipe();
+  
   // react to hash changes (e.g., when user clicks left nav)
   window.addEventListener("hashchange", () => {
     if (loadFromHash()) render();
