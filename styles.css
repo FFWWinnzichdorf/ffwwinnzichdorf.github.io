@@ -123,3 +123,9 @@ body {
   .sidebar { display: none; }
   .panel img { max-height: 60vh; }
 }
+
+.mobile-only { display: none; }
+
+@media (max-width: 800px) {
+  .mobile-only { display: inline-block; }
+}
