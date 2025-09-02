@@ -117,10 +117,17 @@ body {
   color: var(--muted);
 }
 
-/* Mobile: sidebar can be off-screen; users can still use episode links from home */
 @media (max-width: 800px) {
   .layout { grid-template-columns: 1fr; }
-  .sidebar { display: none; }
+
+  /* Read mode (default) */
+  body[data-mode="read"] .sidebar { display: none; }
+  body[data-mode="read"] .viewer  { display: grid; }
+
+  /* Episodes mode */
+  body[data-mode="episodes"] .sidebar { display: block; }
+  body[data-mode="episodes"] .viewer  { display: none; }
+
   .panel img { max-height: 60vh; }
 }
 
