@@ -15,12 +15,17 @@ const mobileEpisodesBtn = document.getElementById("mobileEpisodesBtn");
 const modeReadBtn = document.getElementById("modeRead");
 const modeEpiBtn  = document.getElementById("modeEpisodes");
 
+function inEpisodesMode() {
+  return document.body.getAttribute("data-mode") === "episodes";
+}
+
 function setMode(m) {
   document.body.setAttribute("data-mode", m);
   const isRead = m === "read";
   modeReadBtn?.setAttribute("aria-pressed", String(isRead));
   modeEpiBtn?.setAttribute("aria-pressed", String(!isRead));
   sessionStorage.setItem("mode", m);
+  updateStatusInteractivity(); 
 }
 
 // Parse location hash like #ep1:2  (episode id : 1-based panel)
@@ -67,6 +72,8 @@ function render() {
   capEl.textContent = `${ep.title || ep.id} — ${panelIndex + 1}/${ep.panels.length}`;
   statusEl.textContent = `Episode: ${ep.title || ep.id} · Panel ${panelIndex + 1} of ${ep.panels.length}`;
 
+  if (inEpisodesMode()) statusEl.textContent += "  ·  Tap here to return";
+  
   // update hash to keep URL shareable
   setHash(ep.id, panelIndex + 1);
 
@@ -87,6 +94,17 @@ function setupClickZones() {
     (x < rect.width / 2) ? goPrev() : goNext();
   });
 }
+
+// make footer clickable in episodes mode (mobile or not is fine; CSS handles the look)
+statusEl.addEventListener("click", () => {
+  if (inEpisodesMode()) setMode("read");
+});
+statusEl.addEventListener("keydown", (e) => {
+  if (inEpisodesMode() && (e.key === "Enter" || e.key === " ")) {
+    e.preventDefault();
+    setMode("read");
+  }
+});
 
 // Swipe (basic)
 function setupSwipe() {
@@ -136,6 +154,19 @@ function loadFromHash() {
   return false;
 }
 
+function updateStatusInteractivity() {
+  const active = inEpisodesMode();
+  if (active) {
+    statusEl.setAttribute("role", "button");
+    statusEl.setAttribute("tabindex", "0");
+    statusEl.setAttribute("aria-label", "Back to reading");
+  } else {
+    statusEl.removeAttribute("role");
+    statusEl.setAttribute("tabindex", "-1");
+    statusEl.removeAttribute("aria-label");
+  }
+}
+
 // Init
 async function init() {
   const res = await fetch("comics.json");
@@ -154,6 +185,9 @@ async function init() {
   nextBtn.addEventListener("click", goNext);
   prevBtn.addEventListener("click", goPrev);
   mobileEpisodesBtn?.addEventListener("click", () => setMode("episodes"));
+
+  setMode(sessionStorage.getItem("mode") || "read");
+  updateStatusInteractivity(); 
   
   setupClickZones();
   setupSwipe();
