@@ -12,6 +12,16 @@ const statusEl = $("#statusText");
 const prevBtn = $("#prevBtn");
 const nextBtn = $("#nextBtn");
 const mobileEpisodesBtn = document.getElementById("mobileEpisodesBtn");
+const modeReadBtn = document.getElementById("modeRead");
+const modeEpiBtn  = document.getElementById("modeEpisodes");
+
+function setMode(m) {
+  document.body.setAttribute("data-mode", m);
+  const isRead = m === "read";
+  modeReadBtn?.setAttribute("aria-pressed", String(isRead));
+  modeEpiBtn?.setAttribute("aria-pressed", String(!isRead));
+  sessionStorage.setItem("mode", m);
+}
 
 // Parse location hash like #ep1:2  (episode id : 1-based panel)
 function parseHash() {
