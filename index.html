@@ -1,8 +1,46 @@
 <!DOCTYPE html>
-<html>
-<head><title>Test</title></head>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>My Comics</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
 <body>
-  <h1>Hello world</h1>
-  <p>If you can read this, GitHub Pages works!</p>
+  <!-- Top banner -->
+  <header class="banner">
+    <div class="banner__inner">
+      <h1>My Comics</h1>
+      <p class="subtitle">updates whenever I feel like it :)</p>
+    </div>
+  </header>
+
+  <div class="layout">
+    <!-- Left navigation -->
+    <nav class="sidebar" id="sidebar">
+      <h2>Episodes</h2>
+      <ul id="episodeList"><!-- filled by app.js --></ul>
+    </nav>
+
+    <!-- Main viewer -->
+    <main class="viewer">
+      <figure class="panel">
+        <img id="panelImg" alt="" />
+        <figcaption id="panelCaption"></figcaption>
+      </figure>
+
+      <div class="controls">
+        <button id="prevBtn" title="Previous (←)">⟨ Prev</button>
+        <button id="nextBtn" title="Next (→)">Next ⟩</button>
+      </div>
+    </main>
+  </div>
+
+  <!-- Tiny helper: shows current episode/panel -->
+  <footer class="footer">
+    <span id="statusText">—</span>
+  </footer>
+
+  <script src="app.js"></script>
 </body>
 </html>
