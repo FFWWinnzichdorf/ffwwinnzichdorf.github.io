@@ -1,0 +1,125 @@
+:root {
+  --bg: #0b0c10;
+  --panel: #111827;
+  --text: #e5e7eb;
+  --muted: #9ca3af;
+  --accent: #60a5fa;
+}
+
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  line-height: 1.5;
+}
+
+/* Banner */
+.banner {
+  background: linear-gradient(180deg, #0f172a, #111827);
+  border-bottom: 1px solid #1f2937;
+}
+.banner__inner {
+  max-width: 1200px;
+  padding: 12px 16px;
+  margin: 0 auto;
+}
+.banner h1 { margin: 0; font-size: clamp(18px, 3vw, 28px); }
+.subtitle { margin: 2px 0 0; color: var(--muted); font-size: 0.95rem; }
+
+/* Layout */
+.layout {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  gap: 0;
+  max-width: 1400px;
+  margin: 0 auto;
+  min-height: calc(100vh - 92px);
+}
+
+/* Sidebar */
+.sidebar {
+  border-right: 1px solid #1f2937;
+  padding: 12px;
+  position: sticky; top: 0;
+  align-self: start;
+}
+.sidebar h2 {
+  margin: 6px 0 8px;
+  font-size: 1rem; color: var(--muted); font-weight: 600;
+}
+#episodeList {
+  list-style: none; padding: 0; margin: 0;
+}
+#episodeList li { margin: 4px 0; }
+#episodeList a {
+  display: block;
+  padding: 8px 10px;
+  border-radius: 8px;
+  color: var(--text);
+  text-decoration: none;
+  background: #0f172a;
+  border: 1px solid #1f2937;
+}
+#episodeList a:hover { background: #111827; border-color: #334155; }
+
+/* Viewer */
+.viewer {
+  padding: 16px;
+  display: grid;
+  grid-template-rows: 1fr auto;
+  gap: 12px;
+}
+.panel {
+  margin: 0;
+  background: var(--panel);
+  border: 1px solid #1f2937;
+  border-radius: 12px;
+  padding: 10px;
+  display: grid;
+  place-items: center;
+  min-height: min(75vh, 1000px);
+}
+.panel img {
+  max-width: 100%;
+  max-height: 70vh; /* keeps large images contained on desktop */
+  height: auto;
+  display: block;
+}
+.panel figcaption {
+  margin-top: 8px;
+  color: var(--muted);
+  font-size: 0.95rem;
+  text-align: center;
+}
+
+/* Controls */
+.controls {
+  display: flex; gap: 10px; justify-content: center;
+}
+.controls button {
+  padding: 10px 14px;
+  background: #0f172a;
+  border: 1px solid #334155;
+  color: var(--text);
+  border-radius: 10px;
+  cursor: pointer;
+}
+.controls button:hover { background: #111827; }
+
+/* Footer */
+.footer {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 10px 16px 30px;
+  color: var(--muted);
+}
+
+/* Mobile: sidebar can be off-screen; users can still use episode links from home */
+@media (max-width: 800px) {
+  .layout { grid-template-columns: 1fr; }
+  .sidebar { display: none; }
+  .panel img { max-height: 60vh; }
+}
