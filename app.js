@@ -19,13 +19,28 @@ function inEpisodesMode() {
   return document.body.getAttribute("data-mode") === "episodes";
 }
 
+// builds the base status text (episode + panel)
+function buildStatusBase() {
+  const ep = DATA.episodes[epIndex];
+  if (!ep) return "—";
+  return `Episode: ${ep.title || ep.id} · Panel ${panelIndex + 1} of ${ep.panels.length}`;
+}
+
+// sets the footer text, adding the hint when appropriate
+function updateStatusText() {
+  let t = buildStatusBase();
+  if (inEpisodesMode()) t += " · Tap here to return";
+  statusEl.textContent = t;
+}
+
 function setMode(m) {
   document.body.setAttribute("data-mode", m);
   const isRead = m === "read";
   modeReadBtn?.setAttribute("aria-pressed", String(isRead));
   modeEpiBtn?.setAttribute("aria-pressed", String(!isRead));
   sessionStorage.setItem("mode", m);
-  updateStatusInteractivity(); 
+  updateStatusInteractivity();
+  updateStatusText();
 }
 
 // Parse location hash like #ep1:2  (episode id : 1-based panel)
@@ -61,25 +76,28 @@ function buildNav() {
 // Show current panel
 function render() {
   const ep = DATA.episodes[epIndex];
-  if (!ep) return;
+  if (!ep) {
+    imgEl.removeAttribute("src");
+    imgEl.alt = "";
+    capEl.textContent = "";
+    prevBtn.disabled = true;
+    nextBtn.disabled = true;
+    updateStatusText();
+    return;
+  }
 
-  // clamp panel
   panelIndex = Math.max(0, Math.min(panelIndex, ep.panels.length - 1));
 
-  const src = ep.panels[panelIndex];
-  imgEl.src = src;
-  imgEl.alt = ep.title ? `${ep.title} — panel ${panelIndex + 1}` : `panel ${panelIndex + 1}`;
+  imgEl.src = ep.panels[panelIndex];
+  imgEl.alt = `${ep.title || ep.id} — panel ${panelIndex + 1}`;
   capEl.textContent = `${ep.title || ep.id} — ${panelIndex + 1}/${ep.panels.length}`;
-  statusEl.textContent = `Episode: ${ep.title || ep.id} · Panel ${panelIndex + 1} of ${ep.panels.length}`;
 
-  if (inEpisodesMode()) statusEl.textContent += "  ·  Tap here to return";
-  
-  // update hash to keep URL shareable
-  setHash(ep.id, panelIndex + 1);
-
-  // enable/disable buttons
   prevBtn.disabled = panelIndex <= 0;
   nextBtn.disabled = panelIndex >= ep.panels.length - 1;
+
+  setHash(ep.id, panelIndex + 1);
+
+  updateStatusText(); // 🔑 let the helper own the footer text
 }
 
 // Navigation functions
