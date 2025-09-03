@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Privacy / Datenschutz</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="banner">
+    <div class="banner__inner">
+      <h1>Privacy / Datenschutz</h1>
+    </div>
+  </header>
+  <nav class="backbar">
+  <a href="/" id="backLink">← Back to reader / Zurück zur Ansicht</a>
+</nav>
+<script>
+  // Prefer real back if user came from your site; otherwise go to home
+  (function () {
+    const link = document.getElementById('backLink');
+    const ref  = document.referrer || '';
+    // Change "/" to your actual home path if you’re using a subfolder, e.g. "/cartoon-site/"
+    const home = '/';
+    if (window.history.length > 1 && ref.startsWith(location.origin)) {
+      link.addEventListener('click', function (e) {
+        e.preventDefault();
+        history.back();
+      });
+    } else {
+      link.setAttribute('href', home);
+    }
+  })();
+</script>
+  <main class="content">
+    <h2>English</h2>
+    <p>
+      This site does not use tracking cookies or analytics. Your browser may 
+      store a small local preference (such as your reading mode) so you don’t 
+      have to reselect it on each visit. This information never leaves your 
+      device and is not shared with anyone.
+    </p>
+
+    <h2>Deutsch</h2>
+    <p>
+      Diese Website verwendet keine Tracking-Cookies oder Analysedienste. Ihr 
+      Browser speichert möglicherweise eine kleine lokale Einstellung (z.&nbsp;B. 
+      den Lesemodus), damit Sie diese nicht bei jedem Besuch erneut auswählen 
+      müssen. Diese Information verlässt Ihr Gerät nicht und wird mit niemandem 
+      geteilt.
+    </p>
+  </main>
+</body>
+</html>
