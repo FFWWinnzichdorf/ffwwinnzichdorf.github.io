@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Disclaimer</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="banner">
+    <div class="banner__inner">
+      <h1>Disclaimer</h1>
+    </div>
+  </header>
+<nav class="backbar">
+  <a href="/" id="backLink">← Back to reader / Zurück zur Ansicht</a>
+</nav>
+<script>
+  // Prefer real back if user came from your site; otherwise go to home
+  (function () {
+    const link = document.getElementById('backLink');
+    const ref  = document.referrer || '';
+    // Change "/" to your actual home path if you’re using a subfolder, e.g. "/cartoon-site/"
+    const home = '/';
+    if (window.history.length > 1 && ref.startsWith(location.origin)) {
+      link.addEventListener('click', function (e) {
+        e.preventDefault();
+        history.back();
+      });
+    } else {
+      link.setAttribute('href', home);
+    }
+  })();
+</script>
+  <main class="content">
+    <h2>English</h2>
+    <p>
+      This is a work of fiction. Names, characters, businesses, places, events, 
+      and incidents are either the products of the author’s imagination or are 
+      used in a fictitious manner. Any resemblance to actual persons, living 
+      or dead, or actual events is purely coincidental.
+    </p>
+    <p>
+      These comics are created for entertainment purposes only. No offense is 
+      intended toward any individual or group. If the humor or style isn’t to 
+      your taste, that’s okay — please feel free to simply move on.
+    </p>
+
+    <h2>Deutsch</h2>
+    <p>
+      Dies ist ein Werk der Fiktion. Namen, Figuren, Unternehmen, Orte, 
+      Ereignisse und Vorfälle sind entweder Produkte der Fantasie des Autors 
+      oder in fiktiver Weise verwendet. Ähnlichkeiten mit tatsächlichen 
+      Personen, lebend oder verstorben, oder realen Ereignissen sind rein 
+      zufällig.
+    </p>
+    <p>
+      Diese Comics dienen ausschließlich der Unterhaltung. Es ist nicht 
+      beabsichtigt, irgendjemanden oder irgendeine Gruppe zu beleidigen. 
+      Wenn Ihnen Humor oder Stil nicht zusagen, ist das völlig in Ordnung — 
+      bitte lesen Sie einfach nicht weiter.
+    </p>
+  </main>
+</body>
+</html>
