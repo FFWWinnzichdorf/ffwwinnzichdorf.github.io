@@ -111,8 +111,8 @@ function render() {
 }
 
 // Navigation functions
-function goNext() { panelIndex++; goTo(epIndex, panelIndex); }
-function goPrev() { panelIndex--; goTo(epIndex, panelIndex); }
+function goNext() { panelIndex++; goTo(DATA.episodes[epIndex].id, panelIndex); }
+function goPrev() { panelIndex--; goTo(DATA.episodes[epIndex].id, panelIndex); }
 
 // Click left/right half to navigate
 function setupClickZones() {
