@@ -143,3 +143,32 @@ body {
     cursor: pointer;
   }
 }
+
+.legal-links {
+  margin-top: 8px;
+  font-size: 0.9rem;
+}
+.legal-links a {
+  color: var(--muted);
+  text-decoration: none;
+}
+.legal-links a:hover {
+  text-decoration: underline;
+}
+
+.backbar {
+  max-width: 1200px;
+  margin: 8px auto 0;
+  padding: 0 16px 8px;
+}
+.backbar a {
+  display: inline-block;
+  padding: 8px 10px;
+  border: 1px solid #334155;
+  border-radius: 8px;
+  background: #0f172a;
+  color: var(--text);
+  text-decoration: none;
+}
+.backbar a:hover { background: #111827; }
+
