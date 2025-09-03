@@ -13,8 +13,10 @@
       "id": "ep2",
       "title": "Episode 2 — Cat Mayor",
       "panels": [
-        "img/ep2/001.jpg",
-        "img/ep2/002.jpg"
+        "img/ep2/001.png",
+        "img/ep2/002.png",
+        "img/ep2/003.png",
+        "img/ep2/004.png"
       ]
     }
   ]
