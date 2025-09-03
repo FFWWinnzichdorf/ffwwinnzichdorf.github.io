@@ -167,6 +167,7 @@ function loadFromHash() {
   if (idx >= 0) {
     epIndex = idx;
     panelIndex = Math.max(0, Math.min((info.panel|0) - 1, DATA.episodes[idx].panels.length - 1));
+    if (inEpisodesMode()) setMode("read");
     return true;
   }
   return false;
