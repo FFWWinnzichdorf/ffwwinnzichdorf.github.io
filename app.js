@@ -43,16 +43,28 @@ function setMode(m) {
   updateStatusText();
 }
 
+function goTo(epId, panel) {
+  const idx = findEpisodeIndex(epId);
+  if (idx < 0) return;
+
+  epIndex = idx;
+  panelIndex = Math.max(0, Math.min(panel - 1, DATA.episodes[idx].panels.length - 1));
+
+  // change the <img> source directly
+  imgEl.src = DATA.episodes[epIndex].panels[panelIndex];
+
+  // update URL without scrolling
+  history.replaceState(null, "", `#${epId}:${panel}`);
+
+  render(); // update caption, buttons, footer, etc.
+}
+
 // Parse location hash like #ep1:2  (episode id : 1-based panel)
 function parseHash() {
   const h = (location.hash || "").replace(/^#/, "");
   if (!h) return null;
   const [epId, panelStr] = h.split(":");
   return { epId, panel: Math.max(1, parseInt(panelStr || "1", 10) || 1) };
-}
-
-function setHash(epId, panel1based) {
-  location.hash = `${epId}:${panel1based}`;
 }
 
 // Find episode index by id
@@ -101,8 +113,8 @@ function render() {
 }
 
 // Navigation functions
-function goNext() { panelIndex++; render(); }
-function goPrev() { panelIndex--; render(); }
+function goNext() { panelIndex++; goTo(epIndex, panelIndex); }
+function goPrev() { panelIndex--; goTo(epIndex, panelIndex); }
 
 // Click left/right half to navigate
 function setupClickZones() {
