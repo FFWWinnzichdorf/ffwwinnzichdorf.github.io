@@ -48,7 +48,7 @@ function goTo(epId, panel) {
   if (idx < 0) return;
 
   epIndex = idx;
-  panelIndex = Math.max(0, Math.min(panel - 1, DATA.episodes[idx].panels.length - 1));
+  panelIndex = Math.max(0, Math.min(panel, DATA.episodes[idx].panels.length - 1));
 
   // change the <img> source directly
   imgEl.src = DATA.episodes[epIndex].panels[panelIndex];
