@@ -107,8 +107,6 @@ function render() {
   prevBtn.disabled = panelIndex <= 0;
   nextBtn.disabled = panelIndex >= ep.panels.length - 1;
 
-  setHash(ep.id, panelIndex + 1);
-
   updateStatusText(); // 🔑 let the helper own the footer text
 }
 
