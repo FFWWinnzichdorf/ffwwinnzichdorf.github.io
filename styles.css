@@ -39,7 +39,7 @@ body {
   display: grid;
   grid-template-columns: 260px 1fr;
   gap: 0;
-  max-width: 1400px;
+  width: 100%;
   margin: 0 auto;
   min-height: calc(100vh - 92px);
 }
@@ -48,7 +48,8 @@ body {
 .sidebar {
   border-right: 1px solid #1f2937;
   padding: 12px;
-  position: sticky; top: 0;
+  position: sticky;
+  top: 0;
   align-self: start;
 }
 .sidebar h2 {
@@ -73,9 +74,9 @@ body {
 /* Viewer */
 .viewer {
   padding: 16px;
-  display: grid;
-  grid-template-rows: 1fr auto;
+  max-width: 1200px;
   gap: 12px;
+  margin: 0 auto;
 }
 .panel {
   margin: 0;
